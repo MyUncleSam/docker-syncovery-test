@@ -1,3 +1,5 @@
+# TEST ONLY - DO NOT USE!!!
+
 # Original work by hlince 
 https://hub.docker.com/r/hlince/syncovery - I created This repository with updated SyncoveryCL versions to be up2date. Everything else is original work from hlince.
 
