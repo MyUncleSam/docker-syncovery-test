@@ -5,7 +5,6 @@ ENV SETUP_TEMP=/tmp/syncovery.tar.gz
 
 ADD ./docker-entrypoint.sh /docker/entrypoint.sh
 
-RUN yum -y install wget openssl-devel
 RUN apk update
 RUN apk add wget openssl libressl-dev
 RUN mkdir /syncovery && \
