@@ -26,7 +26,7 @@ The following sample is running against an unraid host
 2. Go to http://your-docker-host:8999
 3. Use the username default and the password pass
 
-# Docker
+# Docker run
 
     docker run -d --name=syncovery -v /opt/docker/syncovery/config:/config -v /opt/docker/syncovery/tmp:/tmp -p 8999:8999 stefanruepp/syncoverycl
 
