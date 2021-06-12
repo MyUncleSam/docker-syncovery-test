@@ -21,6 +21,11 @@ function start() {
   mkdir -p ${SYNCOVERY_HOME}/.Syncovery
   touch ${SYNCOVERY_HOME}/.Syncovery/WebGUI.log
   
+  if [ ! -f ${SYNCOVERY_HOME}/.Syncovery/Syncovery.cfg ]; then
+      echo "Setting configuration setting for webserver"
+      /syncovery/SyncoveryCL SET /WEBSERVER=0.0.0.0
+  fi
+
   echo "Starting Syncovery"
   /syncovery/SyncoveryCL start
 
