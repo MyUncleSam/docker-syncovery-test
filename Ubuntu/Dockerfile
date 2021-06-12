@@ -40,9 +40,9 @@ ADD ./start.sh /docker/start.sh
 
 RUN chmod +x /docker/start.sh
 
-EXPOSE 8999/tcp
-EXPOSE 8900/tcp
-EXPOSE 8949/tcp
+EXPOSE 8999
+EXPOSE 8900
+EXPOSE 8949
 
 VOLUME [ "/tmp", "/config" ]
 
