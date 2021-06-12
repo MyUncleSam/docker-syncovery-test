@@ -1,0 +1,49 @@
+FROM ubuntu:20.04
+
+ARG SYNCOVERY_DOWNLOADLINK
+ARG GUARD_DOWNLOADLINK
+ARG REMOTE_DOWNLOADLINK
+
+LABEL maintainer="Stefan Ruepp <stefan@ruepp.info>"
+LABEL github="https://github.com/MyUncleSam/docker-syncovery/"
+
+ENV SYNCOVERY_HOME=/config
+ENV TZ=Europe/Berlin
+ENV DEBIAN_FRONTEND=noninteractive
+ENV SETUP_TEMP=/tmp/installers/
+
+# download installer files for debian
+RUN mkdir -p /docker/tmp \
+    && mkdir -p /config \
+    && mkdir -p /tmp \
+    && mkdir -p /syncovery \
+    && mkdir -p $SETUP_TEMP \
+    && apt-get update \
+    && apt-get install -y software-properties-common wget tzdata cron sudo apt-transport-https php php-json zip unzip libopus-dev ffmpeg python3-pip youtube-dl tmux locales locales-all \
+    && ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && dpkg-reconfigure -f noninteractive tzdata \
+    && apt-get autoclean -y && apt-get clean -y && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/* \
+    && cd /tmp \
+    && wget -O "${SETUP_TEMP}/syncovery.tar.gz" "${SYNCOVERY_DOWNLOADLINK}" \
+    && tar -xvf "${SETUP_TEMP}/syncovery.tar.gz" --directory /syncovery \
+    && chmod +x /syncovery/SyncoveryCL \
+    && wget -O "${SETUP_TEMP}/remote.tar.gz" "${REMOTE_DOWNLOADLINK}" \
+    && tar -xvf "${SETUP_TEMP}/remote.tar.gz" --directory /syncovery \
+    && chmod +x /syncovery/SyncoveryRS \
+    && wget -O "${SETUP_TEMP}/guard.tar.gz" "${GUARD_DOWNLOADLINK}" \
+    && tar -xvf "${SETUP_TEMP}/guard.tar.gz" --directory /syncovery \
+    && chmod +x /syncovery/SyncoveryGuardian \
+    && cd / \
+    && rm -rf /tmp/*
+
+ADD ./start.sh /docker/start.sh
+
+RUN chmod +x /docker/start.sh
+
+EXPOSE 8999/tcp
+EXPOSE 8900/tcp
+EXPOSE 8949/tcp
+
+VOLUME [ "/tmp", "/config" ]
+
+ENTRYPOINT [ "/docker/entrypoint.sh" ]
