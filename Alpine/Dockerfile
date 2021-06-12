@@ -51,4 +51,4 @@ EXPOSE 8949/tcp
 
 VOLUME [ "/tmp", "/config" ]
 
-ENTRYPOINT [ "/docker/entrypoint.sh" ]
+ENTRYPOINT [ "/docker/start.sh" ]
