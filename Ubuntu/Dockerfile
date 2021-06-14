@@ -19,7 +19,7 @@ RUN mkdir -p /docker/tmp \
     && mkdir -p /syncovery \
     && mkdir -p $SETUP_TEMP \
     && apt-get update \
-    && apt-get install --no-install-recommends -y bash wget openssl libcrypto++6 libssl-dev sqlite3 libsqlite3-0 libsmbclient tzdata \
+    && apt-get install --no-install-recommends -y bash wget openssl ca-certificates libcrypto++6 libssl-dev sqlite3 libsqlite3-0 libsmbclient tzdata \
     && ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && dpkg-reconfigure -f noninteractive tzdata \
     && apt-get autoclean -y && apt-get clean -y && apt-get autoremove -y && apt-get autoremove --purge -y \
     && rm -rf /var/lib/apt/lists/* \
