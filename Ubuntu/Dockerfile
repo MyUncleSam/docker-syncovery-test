@@ -19,9 +19,9 @@ RUN mkdir -p /docker/tmp \
     && mkdir -p /syncovery \
     && mkdir -p $SETUP_TEMP \
     && apt-get update \
-    && apt-get install -y software-properties-common wget tzdata cron sudo apt-transport-https php php-json zip unzip libopus-dev ffmpeg python3-pip youtube-dl tmux locales locales-all \
+    && apt-get install --no-install-recommends -y software-properties-common wget tzdata cron sudo apt-transport-https php php-json zip unzip libopus-dev ffmpeg python3-pip youtube-dl tmux locales locales-all \
     && ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && dpkg-reconfigure -f noninteractive tzdata \
-    && apt-get autoclean -y && apt-get clean -y && apt-get autoremove -y \
+    && apt-get autoclean -y && apt-get clean -y && apt-get autoremove -y && apt-get autoremove --purge -y \
     && rm -rf /var/lib/apt/lists/* \
     && cd /tmp \
     && wget -O "${SETUP_TEMP}/syncovery.tar.gz" "${SYNCOVERY_DOWNLOADLINK}" \
